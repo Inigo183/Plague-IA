@@ -203,7 +203,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.3794055, g: 0.8083546, b: 0.9245283, a: 0}
+  m_BackGroundColor: {r: 0.3058473, g: 0.6504407, b: 0.745283, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -387,6 +387,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   world: {fileID: 341380621}
-  cell: {fileID: 6169088384619154475, guid: 4e7de7ace51f2854eb7772575b2e7d29, type: 3}
-  high: 50
-  width: 50
+  cell: {fileID: 4823579742003217137, guid: 503619e38d82d5749af07d3212bf64ba, type: 3}
+  high: 100
+  width: 200
