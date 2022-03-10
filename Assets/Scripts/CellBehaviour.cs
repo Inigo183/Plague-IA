@@ -80,8 +80,8 @@ public class CellBehaviour : MonoBehaviour {
 
     public void UpdateColor() {
         Material material = gameObject.GetComponent<MeshRenderer>().material;
-        int deadValue = (255 - 255 / humans * dead);
-        int infectedValue = (255 - 255 / humans * infected);
+        int deadValue = 255 - 255 / humans * dead;
+        int infectedValue = 255 - 255 / humans * infected;
         int excess = infectedValue - (255 - deadValue);
         if (excess > 0) {
             infectedValue = excess;

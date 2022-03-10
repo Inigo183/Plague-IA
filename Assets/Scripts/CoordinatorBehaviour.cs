@@ -45,7 +45,12 @@ public class CoordinatorBehaviour : MonoBehaviour {
         for (int x = 0; x < width; x++) {
             List<GameObject> cells = new List<GameObject>();
             for (int y = 0; y < high; y++) {
-                GameObject newCell = Instantiate(cell, new Vector3(0.1f * x - (0.1f * width / 2) + 0.001f, 0.1f * y - (0.1f * high / 2) + 0.001f, 0), Quaternion.identity);
+                float planeScale = cell.transform.localScale.x * 10f;
+                GameObject newCell = Instantiate(
+                    cell,
+                    new Vector3(planeScale * x - (planeScale * width / 2), planeScale * y - (planeScale * high / 2), 0),
+                    cell.transform.rotation
+                );
                 newCell.transform.parent = world.transform;
                 newCell.GetComponent<CellBehaviour>().SetPosition(x, y);
                 cells.Add(newCell);
@@ -101,7 +106,6 @@ public class CoordinatorBehaviour : MonoBehaviour {
         cellBehaviour.UpdateColor();
         return;
     }
-
 
     private void Kill(GameObject cell) {
         // Kill one human in cell
