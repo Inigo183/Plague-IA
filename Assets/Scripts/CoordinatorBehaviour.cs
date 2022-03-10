@@ -10,8 +10,8 @@ public class CoordinatorBehaviour : MonoBehaviour {
     private List<List<GameObject>> worldList;
     private List<GameObject> infectedCells = new List<GameObject>();
 
-    private int contagious = 10;
-    private int lethal = 0;
+    private int contagious = 40;
+    private int lethal = 10;
 
     void Start() {
         worldList = GenerateWorld();
@@ -22,12 +22,9 @@ public class CoordinatorBehaviour : MonoBehaviour {
     }
 
     void Update() {
-        Debug.Log("update");
         for (int i = 0; i < infectedCells.Count; i++) {
-            Debug.Log("inside");
             Action(infectedCells[i]);
         }
-
     }
 
     private Vector2 RandomStart() {
@@ -37,7 +34,6 @@ public class CoordinatorBehaviour : MonoBehaviour {
         Vector2 point;
         point.x = Random.Range(0, width);
         point.y = Random.Range(0, high);
-
         return point;
     }
 
@@ -49,7 +45,7 @@ public class CoordinatorBehaviour : MonoBehaviour {
         for (int x = 0; x < width; x++) {
             List<GameObject> cells = new List<GameObject>();
             for (int y = 0; y < high; y++) {
-                GameObject newCell = Instantiate(cell, new Vector3(0.1f * x - (0.1f * width / 2), 0.1f * y - (0.1f * high / 2), 0), Quaternion.identity);
+                GameObject newCell = Instantiate(cell, new Vector3(0.1f * x - (0.1f * width / 2) + 0.001f, 0.1f * y - (0.1f * high / 2) + 0.001f, 0), Quaternion.identity);
                 newCell.transform.parent = world.transform;
                 newCell.GetComponent<CellBehaviour>().SetPosition(x, y);
                 cells.Add(newCell);
@@ -66,10 +62,12 @@ public class CoordinatorBehaviour : MonoBehaviour {
          *                Kill
          */
         int random = Random.Range(0, 100);
-        if (random > 100 - contagious) {
-            Infectation(cell);
+        if (random > (100 - contagious - lethal)) {
             if (random > 100 - lethal) {
                 Kill(cell);
+            }
+            else {
+                Infectation(cell);
             }
         }
 
@@ -86,8 +84,8 @@ public class CoordinatorBehaviour : MonoBehaviour {
             cellBehaviour.Infect();
         } else {
             // Calculate expansion cell
-            int new_x = cellBehaviour.x + Random.Range(-1, 1);
-            int new_y = cellBehaviour.y + Random.Range(-1, 1);
+            int new_x = cellBehaviour.x + Random.Range(-1, 2);
+            int new_y = cellBehaviour.y + Random.Range(-1, 2);
             // Check new cell is in map
             if (new_x >= 0 && new_x < width && new_y >= 0 && new_y < high){
                 // Get cell to infect
@@ -100,6 +98,7 @@ public class CoordinatorBehaviour : MonoBehaviour {
             }
         }
 
+        cellBehaviour.UpdateColor();
         return;
     }
 
@@ -112,6 +111,7 @@ public class CoordinatorBehaviour : MonoBehaviour {
             infectedCells.Remove(cell);
         }
 
+        cellBehaviour.UpdateColor();
         return;
     }
 }
