@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CellBehaviour : MonoBehaviour
-{
+public class CellBehaviour : MonoBehaviour {
     // worldList indeces
     public int x, y;
 
@@ -77,5 +76,18 @@ public class CellBehaviour : MonoBehaviour
         infected++;
         healthy--;
         return firstInfected;
+    }
+
+    public void UpdateColor() {
+        Material material = gameObject.GetComponent<MeshRenderer>().material;
+        int deadValue = (255 - 255 / humans * dead);
+        int infectedValue = (255 - 255 / humans * infected);
+        int excess = infectedValue - (255 - deadValue);
+        if (excess > 0) {
+            infectedValue = excess;
+        } else {
+            infectedValue = 0;
+        }
+        material.SetColor("_Color", new Color32((byte)deadValue, (byte)infectedValue, (byte)infectedValue, (byte)1));
     }
 }
