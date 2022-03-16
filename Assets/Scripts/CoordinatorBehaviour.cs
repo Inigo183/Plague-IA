@@ -18,9 +18,9 @@ public class CoordinatorBehaviour : MonoBehaviour {
     private int cureLevel = 10;
     private int cureAdvance = 20;
 
-
     Vector2 virusPoint, curePoint;
     public float cureVirusDistance;
+
     void Start() {
         worldList = GenerateWorld();
         Vector2 VirusStartPoint = RandomStart();
